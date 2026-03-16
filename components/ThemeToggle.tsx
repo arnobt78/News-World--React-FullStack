@@ -1,28 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore, useCallback, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const THEME_KEY = "news-world-theme";
 
+function getSnapshot(): "light" | "dark" {
+  if (typeof window === "undefined") return "dark";
+  const stored = localStorage.getItem(THEME_KEY) as "light" | "dark" | null;
+  if (stored) return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+const themeListeners = new Set<() => void>();
+
+function subscribe(callback: () => void) {
+  themeListeners.add(callback);
+  window.addEventListener("storage", callback);
+  return () => {
+    themeListeners.delete(callback);
+    window.removeEventListener("storage", callback);
+  };
+}
+
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const theme = useSyncExternalStore(subscribe, getSnapshot, () => "dark");
 
   useEffect(() => {
-    const stored = localStorage.getItem(THEME_KEY) as "light" | "dark" | null;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial = stored ?? (prefersDark ? "dark" : "light");
-    setTheme(initial);
-    document.documentElement.classList.toggle("dark", initial === "dark");
-  }, []);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
-  const toggle = () => {
+  const toggle = useCallback(() => {
     const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
     localStorage.setItem(THEME_KEY, next);
     document.documentElement.classList.toggle("dark", next === "dark");
-  };
+    themeListeners.forEach((cb) => cb());
+  }, [theme]);
 
   return (
     <Button

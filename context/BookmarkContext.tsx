@@ -4,8 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 import type { Article } from "@/types/news";
@@ -60,35 +59,65 @@ function saveToStorage(articles: BookmarkArticle[]) {
   }
 }
 
+const bookmarkListeners = new Set<() => void>();
+let cachedSnapshot: BookmarkArticle[] = [];
+let snapshotInitialized = false;
+
+function subscribeBookmarks(callback: () => void) {
+  bookmarkListeners.add(callback);
+  const handler = (e: StorageEvent) => {
+    if (e.key === STORAGE_KEY) {
+      cachedSnapshot = loadFromStorage();
+      callback();
+    }
+  };
+  window.addEventListener("storage", handler);
+  return () => {
+    bookmarkListeners.delete(callback);
+    window.removeEventListener("storage", handler);
+  };
+}
+
+function getBookmarkSnapshot(): BookmarkArticle[] {
+  if (typeof window === "undefined") return [];
+  if (!snapshotInitialized) {
+    cachedSnapshot = loadFromStorage();
+    snapshotInitialized = true;
+  }
+  return cachedSnapshot;
+}
+
 export function BookmarkProvider({ children }: { children: ReactNode }) {
-  const [bookmarkedArticles, setBookmarkedArticles] = useState<BookmarkArticle[]>(
-    []
+  const bookmarkedArticles = useSyncExternalStore(
+    subscribeBookmarks,
+    getBookmarkSnapshot,
+    () => []
   );
 
-  useEffect(() => {
-    setBookmarkedArticles(loadFromStorage());
+  const notify = useCallback(() => {
+    cachedSnapshot = loadFromStorage();
+    bookmarkListeners.forEach((cb) => cb());
   }, []);
 
   const bookmarkedUrls = new Set(bookmarkedArticles.map((a) => a.url));
 
   const toggleBookmark = useCallback((url: string, article?: Article) => {
-    setBookmarkedArticles((prev) => {
-      const idx = prev.findIndex((a) => a.url === url);
-      let next: BookmarkArticle[];
-      if (idx >= 0) {
-        next = prev.filter((a) => a.url !== url);
-      } else if (article) {
-        next = [...prev, toMinimal(article)];
-      } else {
-        next = [...prev, { url, title: "", image: null, publishedAt: "", source: { name: "" } }];
-      }
-      saveToStorage(next);
-      return next;
-    });
-  }, []);
+    const current = loadFromStorage();
+    const idx = current.findIndex((a) => a.url === url);
+    let next: BookmarkArticle[];
+    if (idx >= 0) {
+      next = current.filter((a) => a.url !== url);
+    } else if (article) {
+      next = [...current, toMinimal(article)];
+    } else {
+      next = [...current, { url, title: "", image: null, publishedAt: "", source: { name: "" } }];
+    }
+    saveToStorage(next);
+    notify();
+  }, [notify]);
 
   const isBookmarked = useCallback(
-    (url: string) => bookmarkedUrls.has(url),
+    (url: string) => bookmarkedArticles.some((a) => a.url === url),
     [bookmarkedArticles]
   );
 

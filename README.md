@@ -1,14 +1,14 @@
-# News Current World - ReactVite Web Application
+# Daily World News -Next.js, React, TypeScript, GNews API, TailwindCSS, Shadcn, Axios Fundamental Project 6
 
-![Screenshot 2024-09-27 at 17 06 29](https://github.com/user-attachments/assets/41ea5799-d1cc-44b6-bca5-d28787b8f022)
+News App is a React-Vite Random Current World Related Live News project, using GNews API, Axios for the HTTP Client Request, display the News in different Category in Navbar, display the details in a Popup page, Read more as Source Link and deploy on Vercel.
 
----
+- **Live Demo:** [https://daily-world-news.vercel.app/](https://daily-world-news.vercel.app/)
 
 ## Project Summary
 
 A modern news web application built with React and Vite, providing live, real-time world news powered by the GNews API. Designed for rapid development and learning, this project demonstrates best practices in React, state management, API integration, and frontend tooling. The application features categorized news, a responsive layout, and showcases integration with third-party APIs using Axios.
 
-- **Live-Demo:** https://news-arnob.vercel.app/
+- **Live-Demo:** <https://news-arnob.vercel.app/>
 
 ---
 
@@ -71,7 +71,8 @@ News--ReactVite/
     └── assets/
         └── ...images, styles
 ```
-> *Note: The `src` folder contains all source code, while `components` hold reusable UI elements.*
+
+> _Note: The `src` folder contains all source code, while `components` hold reusable UI elements._
 
 ---
 
@@ -94,40 +95,46 @@ News--ReactVite/
 1. **Install Node.js**  
    Download and install Node.js from [nodejs.org](https://nodejs.org/en/).
 
-2. **Clone the Repository**  
+2. **Clone the Repository**
+
    ```bash
    git clone https://github.com/arnobt78/News--ReactVite.git
    cd News--ReactVite
    ```
 
-3. **Install Dependencies**  
+3. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 4. **Setup .env File**  
    Create a `.env` file in the root, and add your GNews API key:
+
    ```
    VITE_NEWS_API_KEY=your_gnews_api_key_here
    ```
 
 5. **Install Axios**  
    If not already installed:
+
    ```bash
    npm install axios
    ```
 
-6. **Run the Application Locally**  
+6. **Run the Application Locally**
+
    ```bash
    npm run dev
    ```
+
    Open [http://localhost:5173/](http://localhost:5173/) in your browser.
 
 ---
 
 ## API Integration
 
-- **GNews API**:  
+- **GNews API**:
   - Sign up at [gnews.io](https://gnews.io/docs/v4#authentication) to get your API key.
   - Store the API key in your `.env` file as shown above.
   - Axios is used to fetch news data from the API endpoints.
@@ -158,8 +165,9 @@ News--ReactVite/
 ## Example Code Snippets
 
 **Fetching News with Axios:**
+
 ```javascript
-import axios from 'axios';
+import axios from "axios";
 
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 const url = `https://gnews.io/api/v4/top-headlines?token=${API_KEY}&lang=en`;
@@ -169,13 +177,15 @@ const fetchNews = async () => {
     const response = await axios.get(url);
     // set state with response.data.articles
   } catch (error) {
-    console.error('Failed to fetch news:', error);
+    console.error("Failed to fetch news:", error);
   }
 };
 ```
+
 ---
 
 **Sample Navbar Component:**
+
 ```jsx
 export default function Navbar() {
   return (
@@ -190,6 +200,7 @@ export default function Navbar() {
   );
 }
 ```
+
 ---
 
 ## Conclusion
@@ -208,6 +219,6 @@ React, Vite, GNews API, Axios, News App, JavaScript, .env, Environment Variables
 ## Happy Coding! 🚀
 
 Thank you for exploring and using News-ReactVite.  
-*Feel free to fork, star, and contribute!*
+_Feel free to fork, star, and contribute!_
 
 ---

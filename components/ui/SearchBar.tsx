@@ -46,7 +46,7 @@ export default function SearchBar({
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         placeholder={placeholder}
-        className="flex-1 py-3 px-2 bg-transparent text-white placeholder-[#666] outline-none font-comfortaa text-base"
+        className="flex-1 py-3 px-2 bg-transparent text-white placeholder-[#666] outline-none font-outfit text-sm sm:text-base md:text-lg"
         aria-label="Search news"
       />
     </motion.div>

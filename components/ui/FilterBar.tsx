@@ -12,7 +12,7 @@ export default function FilterBar() {
       <select
         value={filters.country}
         onChange={(e) => setCountry((e.target.value || "") as "")}
-        className="bg-[#111214] text-[#ddd] border border-[#333] rounded-lg px-3 py-2 text-sm font-comfortaa outline-none focus:border-[#b88efc]"
+        className="bg-[#111214] text-[#ddd] border border-[#333] rounded-lg px-3 py-2 text-sm sm:text-base md:text-lg font-outfit outline-none focus:border-[#b88efc]"
       >
         <option value="">All Countries</option>
         {countries.map((c) => (
@@ -24,7 +24,7 @@ export default function FilterBar() {
       <select
         value={filters.lang}
         onChange={(e) => setLang((e.target.value || "") as "")}
-        className="bg-[#111214] text-[#ddd] border border-[#333] rounded-lg px-3 py-2 text-sm font-comfortaa outline-none focus:border-[#b88efc]"
+        className="bg-[#111214] text-[#ddd] border border-[#333] rounded-lg px-3 py-2 text-sm sm:text-base md:text-lg font-outfit outline-none focus:border-[#b88efc]"
       >
         <option value="">All Languages</option>
         {languages.map((l) => (

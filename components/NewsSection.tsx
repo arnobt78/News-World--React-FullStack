@@ -11,7 +11,6 @@ import NewsGrid from "./NewsGrid";
 import NewsModal from "./NewsModal";
 import PageHeader from "./ui/PageHeader";
 import AnimatedSection from "./ui/AnimatedSection";
-import FilterBar from "./ui/FilterBar";
 import NewsGridSkeleton from "./ui/NewsGridSkeleton";
 
 interface NewsSectionProps {
@@ -42,15 +41,12 @@ export default function NewsSection({ initialArticles }: NewsSectionProps) {
 
   return (
     <div className="w-full min-w-0">
-      <div className="w-full min-h-[90vh] bg-[#060709] flex flex-col gap-8 shadow-2xl rounded-2xl overflow-hidden">
-        <header className="w-full bg-[#111214]">
+      <div className="w-full min-h-screen bg-[#060709] flex flex-col gap-4 shadow-2xl rounded-2xl overflow-hidden">
+        <header className="w-full bg-[#111214] border-b border-[#222]">
           <PageHeader />
         </header>
 
-        <div className="px-4 sm:px-6 lg:px-8 py-4 border-b border-[#222]">
-          <FilterBar />
-        </div>
-        <div className="flex gap-8 flex-1 px-4 sm:px-6 lg:px-8 pb-8 max-[900px]:flex-col max-[900px]:gap-6">
+        <div className="flex gap-4 flex-1 min-h-0 px-2 sm:px-4 pb-8 max-[900px]:flex-col max-[900px]:gap-6">
           <NewsNavbar
             selectedCategory={selectedCategory}
             onCategoryClick={setSelectedCategory}
@@ -59,12 +55,12 @@ export default function NewsSection({ initialArticles }: NewsSectionProps) {
           <AnimatedSection
             delay={0.1}
             direction="up"
-            className="flex-1 min-w-0 flex flex-col"
+            className="flex-1 min-w-0 min-h-0 flex flex-col"
           >
             {error ? (
               <div className="flex flex-col items-center justify-center h-64 text-[#ddd] gap-4">
                 <p className="text-red-400">{error}</p>
-                <p className="text-sm font-comfortaa">
+                <p className="text-sm font-outfit">
                   Check GNEWS_API_KEY in Vercel env vars.
                 </p>
               </div>
@@ -76,7 +72,7 @@ export default function NewsSection({ initialArticles }: NewsSectionProps) {
             ) : (
               <>
                 {headline && (
-                  <div className="mb-8">
+                  <div className="mb-4">
                     <NewsGrid
                       articles={[headline]}
                       onArticleClick={handleArticleClick}
@@ -90,11 +86,13 @@ export default function NewsSection({ initialArticles }: NewsSectionProps) {
           </AnimatedSection>
         </div>
 
-        <footer className="w-full min-h-20 flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-[#111214] max-[500px]:min-h-32 max-[500px]:flex-col max-[500px]:justify-center max-[500px]:gap-4 max-[500px]:py-4">
-          <p className="text-sm font-light text-[#bbb] font-comfortaa">
-            <span className="font-bebas text-2xl">News App</span>
+        <footer className="w-full min-h-20 flex items-center justify-between px-2 sm:px-4 bg-[#111214] max-[500px]:min-h-32 max-[500px]:flex-col max-[500px]:justify-center max-[500px]:gap-4 max-[500px]:py-4">
+          <p className="text-sm sm:text-base md:text-lg font-light text-[#bbb] font-outfit">
+            <span className="font-playfair text-xl sm:text-2xl md:text-3xl">
+              News World
+            </span>
           </p>
-          <p className="text-sm font-light text-[#bbb] font-comfortaa">
+          <p className="text-sm sm:text-base md:text-lg font-light text-[#bbb] font-outfit">
             &copy; {new Date().getFullYear()}. All reserved.
           </p>
         </footer>

@@ -33,7 +33,7 @@ export function useNews(
       category === "general" && initialArticles && initialArticles.length > 0
         ? {
             headline: initialArticles[0] ?? null,
-            news: initialArticles.slice(1, 7),
+            news: initialArticles.slice(1, 10),
           }
         : undefined,
     enabled: !!category,

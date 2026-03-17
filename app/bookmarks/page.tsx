@@ -33,8 +33,8 @@ export default function BookmarksPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-r from-[#b88efc] to-[#6877f4]">
-      <div className="max-w-9xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen w-full">
+      <div className="max-w-9xl mx-auto w-full">
         <PageHeader />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ export default function BookmarksPage() {
           transition={{ duration: 0.4 }}
           className="py-8"
         >
-          <h1 className="font-bebas text-4xl sm:text-5xl text-white tracking-wider mb-6">
+          <h1 className="font-playfair text-4xl sm:text-5xl text-white tracking-wider mb-6">
             Bookmarks
           </h1>
           {bookmarkedArticles.length === 0 ? (
@@ -51,12 +51,12 @@ export default function BookmarksPage() {
               animate={{ opacity: 1 }}
               className="py-16 text-center"
             >
-              <p className="font-comfortaa text-white/70 mb-4">
+              <p className="font-outfit text-white/70 mb-4">
                 No bookmarked articles yet.
               </p>
               <Link
                 href="/"
-                className="font-comfortaa text-[#b88efc] hover:text-white transition-colors underline"
+                className="font-outfit text-[#b88efc] hover:text-white transition-colors underline"
               >
                 Browse headlines to bookmark
               </Link>

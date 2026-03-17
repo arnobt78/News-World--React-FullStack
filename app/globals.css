@@ -37,10 +37,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --radius: var(--radius);
   --width-9xl: 96rem;
-  --font-kanit: var(--font-kanit), sans-serif;
-  --font-bebas: var(--font-bebas), sans-serif;
-  --font-comfortaa: var(--font-comfortaa), sans-serif;
-  --font-syne: var(--font-syne), sans-serif;
+  --font-playfair: var(--font-playfair-display), serif;
+  --font-outfit: var(--font-outfit-sans), sans-serif;
   --animate-fade-in: fadeIn 0.5s ease-out forwards;
   --animate-fade-out: fadeOut 0.3s ease-in forwards;
 }
@@ -144,26 +142,14 @@
   }
 
   html {
-    font-size: 62.5%;
-    font-family: var(--font-sans);
-  }
-
-  @media (max-width: 500px) {
-    html {
-      font-size: 55%;
-    }
-  }
-
-  @media (max-width: 400px) {
-    html {
-      font-size: 45%;
-    }
+    font-size: 100%;
+    font-family: var(--font-outfit);
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-kanit);
+    font-family: var(--font-outfit);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

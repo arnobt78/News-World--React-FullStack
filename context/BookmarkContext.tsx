@@ -62,8 +62,10 @@ function saveToStorage(articles: BookmarkArticle[]) {
 const bookmarkListeners = new Set<() => void>();
 let cachedSnapshot: BookmarkArticle[] = [];
 let snapshotInitialized = false;
+const EMPTY_BOOKMARKS: BookmarkArticle[] = [];
 
 function subscribeBookmarks(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
   bookmarkListeners.add(callback);
   const handler = (e: StorageEvent) => {
     if (e.key === STORAGE_KEY) {
@@ -79,7 +81,7 @@ function subscribeBookmarks(callback: () => void) {
 }
 
 function getBookmarkSnapshot(): BookmarkArticle[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return EMPTY_BOOKMARKS;
   if (!snapshotInitialized) {
     cachedSnapshot = loadFromStorage();
     snapshotInitialized = true;
@@ -91,7 +93,7 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
   const bookmarkedArticles = useSyncExternalStore(
     subscribeBookmarks,
     getBookmarkSnapshot,
-    () => []
+    () => EMPTY_BOOKMARKS
   );
 
   const notify = useCallback(() => {

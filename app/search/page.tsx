@@ -6,7 +6,6 @@ import SearchBar from "@/components/ui/SearchBar";
 import ArticleCard from "@/components/ui/ArticleCard";
 import PageHeader from "@/components/ui/PageHeader";
 import NewsModal from "@/components/NewsModal";
-import FilterBar from "@/components/ui/FilterBar";
 import SearchResultsSkeleton from "@/components/ui/SearchResultsSkeleton";
 import { useSearch } from "@/hooks/useSearch";
 import { useNewsContext } from "@/context/NewsContext";
@@ -28,8 +27,8 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-r from-[#b88efc] to-[#6877f4]">
-      <div className="max-w-9xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen w-full">
+      <div className="max-w-9xl mx-auto w-full">
         <PageHeader />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,23 +36,23 @@ export default function SearchPage() {
           transition={{ duration: 0.4 }}
           className="py-8"
         >
-          <h1 className="font-bebas text-4xl sm:text-5xl text-white tracking-wider mb-6">
+          <h1 className="font-playfair text-4xl sm:text-5xl text-white tracking-wider mb-6">
             Search News
           </h1>
           <div className="max-w-2xl mb-6">
-            <SearchBar onSearch={setQuery} placeholder="e.g. technology, sports..." />
-          </div>
-          <div className="mb-8">
-            <FilterBar />
+            <SearchBar
+              onSearch={setQuery}
+              placeholder="e.g. technology, sports..."
+            />
           </div>
           {error && (
-            <div className="py-12 text-center text-red-400 font-comfortaa">
+            <div className="py-12 text-center text-red-400 font-outfit">
               {error}
             </div>
           )}
           {loading && query && <SearchResultsSkeleton />}
           {!loading && query && !error && (
-            <p className="font-comfortaa text-white/70 mb-6">
+            <p className="font-outfit text-white/70 mb-6">
               {totalArticles > 0
                 ? `${totalArticles} articles found`
                 : "No articles found"}
@@ -82,7 +81,7 @@ export default function SearchPage() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="py-16 text-center text-white/60 font-comfortaa"
+              className="py-16 text-center text-white/60 font-outfit"
             >
               Try a different search term
             </motion.div>

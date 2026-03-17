@@ -54,7 +54,7 @@ export default function NewsModal({ show, article, onClose }: NewsModalProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="w-[90%] max-w-[60rem] max-h-[90%] bg-[#111214] p-8 sm:p-12 lg:p-16 rounded-xl shadow-2xl relative overflow-y-auto max-[500px]:w-[95%]"
+            className="w-full max-h-[90vh] bg-[#111214] p-4 rounded-xl shadow-2xl relative overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -71,17 +71,23 @@ export default function NewsModal({ show, article, onClose }: NewsModalProps) {
                 <img
                   src={article.image ?? NO_IMG}
                   alt={article.title}
+                  onError={(e) => {
+                    e.currentTarget.src = NO_IMG;
+                  }}
                   className="w-full h-auto max-h-[30rem] object-cover rounded-xl opacity-80"
                 />
                 <CardHeader className="px-0 pt-6">
-                  <h2 className="font-bebas text-2xl sm:text-3xl text-white tracking-wider">
+                  <h2 className="font-playfair text-2xl sm:text-3xl text-white tracking-wider">
                     {article.title}
                   </h2>
                   <div className="flex flex-wrap gap-2 mt-4 items-center">
-                    <Badge variant="secondary" className="bg-[#222] text-[#bbb]">
+                    <Badge
+                      variant="secondary"
+                      className="bg-[#222] text-[#bbb]"
+                    >
                       {article.source.name}
                     </Badge>
-                    <span className="font-comfortaa text-sm text-[#bbb]">
+                    <span className="font-outfit text-sm text-[#bbb]">
                       {new Date(article.publishedAt).toLocaleString("en-US", {
                         month: "short",
                         day: "2-digit",
@@ -115,14 +121,14 @@ export default function NewsModal({ show, article, onClose }: NewsModalProps) {
                   </div>
                 </CardHeader>
                 <CardContent className="px-0">
-                  <p className="text-base text-[#ddd] leading-relaxed font-comfortaa">
+                  <p className="text-base text-[#ddd] leading-relaxed font-outfit">
                     {article.content}
                   </p>
                   <a
                     href={article.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block mt-8 py-4 px-8 bg-gradient-to-r from-[#b88efc] to-[#6877f4] text-white text-center text-base uppercase rounded-[5rem] font-comfortaa hover:opacity-90 active:translate-y-0.5 transition-all"
+                    className="inline-block mt-8 py-4 px-8 bg-gradient-to-r from-[#b88efc] to-[#6877f4] text-white text-center text-base uppercase rounded-[5rem] font-outfit hover:opacity-90 active:translate-y-0.5 transition-all"
                   >
                     Read More
                   </a>

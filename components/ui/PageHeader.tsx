@@ -2,68 +2,89 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { RefreshCw, Bookmark } from "lucide-react";
+import { RefreshCw, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useRefreshNews } from "@/hooks/useRefreshNews";
-import { useBookmarks } from "@/context/BookmarkContext";
+import { useNewsContext } from "@/context/NewsContext";
+import { countries } from "@/data/countries";
+import { languages } from "@/data/languages";
 
 export default function PageHeader() {
   const { refresh, isRefreshing } = useRefreshNews();
-  const { bookmarkedArticles } = useBookmarks();
-  const hasBookmarks = bookmarkedArticles.length > 0;
+  const { filters, setCountry, setLang } = useNewsContext();
 
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="w-full min-h-[4rem] flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4"
+      className="w-full min-h-[4rem] grid grid-cols-1 md:grid-cols-3 items-center gap-4 px-2 sm:px-4 py-4"
     >
       <Link
         href="/"
-        className="font-bebas text-2xl sm:text-3xl text-white tracking-wider hover:text-[#b88efc] transition-colors"
+        className="flex items-center gap-2 font-playfair text-xl sm:text-2xl text-white tracking-wider hover:text-white/80 transition-colors md:justify-self-start"
       >
-        News App
+        <Globe className="size-6 sm:size-7 md:size-8 text-white/80" />
+        <span className="text-white/80">News World</span>
       </Link>
-      <nav className="flex items-center gap-2 sm:gap-4">
+
+      <div className="flex flex-wrap gap-2 sm:gap-4 items-center justify-center md:justify-self-center">
+        <select
+          value={filters.country}
+          onChange={(e) => setCountry((e.target.value || "") as "")}
+          className="bg-[#0a0b0d] text-[#ddd] border border-[#333] rounded-lg px-3 py-2 text-sm sm:text-base font-outfit outline-none focus:border-[#b88efc] shrink-0"
+        >
+          <option value="">All Countries</option>
+          {countries.map((c) => (
+            <option key={c.code} value={c.code}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+        <select
+          value={filters.lang}
+          onChange={(e) => setLang((e.target.value || "") as "")}
+          className="bg-[#0a0b0d] text-[#ddd] border border-[#333] rounded-lg px-3 py-2 text-sm sm:text-base font-outfit outline-none focus:border-[#b88efc] shrink-0"
+        >
+          <option value="">All Languages</option>
+          {languages.map((l) => (
+            <option key={l.code} value={l.code}>
+              {l.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <nav className="flex items-center gap-2 sm:gap-4 md:justify-self-end">
         <Button
           variant="ghost"
           size="icon"
           onClick={() => refresh()}
           disabled={isRefreshing}
           aria-label="Refresh news"
-          className="text-white/80 hover:text-white hover:bg-white/10"
+          className="text-white/80 hover:text-white hover:bg-white/10 size-9 sm:size-10 md:size-11"
         >
           <RefreshCw
-            className={`size-4 ${isRefreshing ? "animate-spin" : ""}`}
+            className={`size-4 sm:size-5 md:size-5 ${isRefreshing ? "animate-spin" : ""}`}
           />
         </Button>
         <ThemeToggle />
-        {hasBookmarks && (
-          <Link
-            href="/bookmarks"
-            className="flex items-center gap-1.5 font-comfortaa text-sm text-white/80 hover:text-white transition-colors"
-          >
-            <Bookmark className="size-4" />
-            Bookmarks
-          </Link>
-        )}
         <Link
           href="/"
-          className="font-comfortaa text-sm text-white/80 hover:text-white transition-colors hidden sm:inline"
+          className="font-outfit text-sm sm:text-base md:text-lg text-white/80 hover:text-white transition-colors hidden sm:inline"
         >
           Home
         </Link>
         <Link
           href="/search"
-          className="font-comfortaa text-sm text-white/80 hover:text-white transition-colors"
+          className="font-outfit text-sm sm:text-base md:text-lg text-white/80 hover:text-white transition-colors"
         >
           Search
         </Link>
         <Link
           href="/about"
-          className="font-comfortaa text-sm text-white/80 hover:text-white transition-colors"
+          className="font-outfit text-sm sm:text-base md:text-lg text-white/80 hover:text-white transition-colors"
         >
           About
         </Link>

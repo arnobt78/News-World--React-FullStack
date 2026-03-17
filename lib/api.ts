@@ -31,7 +31,7 @@ export async function fetchHeadlinesClient(
   const articles = normalizeArticles(data.articles ?? []);
   return {
     headline: articles[0] ?? null,
-    news: articles.slice(1, 7),
+    news: articles.slice(1, 10),
   };
 }
 

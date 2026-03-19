@@ -106,9 +106,9 @@ function HeroSlide({
           onError={(e) => {
             e.currentTarget.src = NO_IMG;
           }}
-          className="w-full h-full object-cover rounded-xl"
+          className="w-full h-full object-cover rounded-xl opacity-90 group-hover:opacity-95 transition-opacity duration-300"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent rounded-xl" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent rounded-xl" />
         <div className="absolute left-0 bottom-0 top-0 flex flex-col justify-end p-6 md:p-10 max-w-2xl">
           <h2 className="font-playfair text-2xl sm:text-4xl md:text-5xl text-white font-semibold tracking-wider leading-tight">
             {article.title}

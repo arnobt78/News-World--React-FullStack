@@ -2,9 +2,10 @@
 
 /**
  * Navbar - Top bar: logo, country/lang filters, refresh, theme toggle, nav links.
- * Used on all pages. Filters from NewsContext; refresh from useRefreshNews.
+ * Active route uses same text color as hover (text-foreground).
  */
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { RefreshCw, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,9 +18,15 @@ import { countries } from "@/data/countries";
 import { languages } from "@/data/languages";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const { refresh, isRefreshing } = useRefreshNews();
   const { filters, setCountry, setLang } = useNewsContext();
   const { bookmarkedArticles } = useBookmarks();
+
+  const linkClass = (path: string, hiddenUntilSm = false) =>
+    `font-outfit text-sm sm:text-base md:text-lg transition-colors ${
+      hiddenUntilSm ? "hidden sm:inline " : ""
+    }${pathname === path ? "text-foreground" : "text-foreground/80 hover:text-foreground"}`;
 
   return (
     <motion.header
@@ -78,22 +85,16 @@ export default function Navbar() {
             />
           </Button>
           <ThemeToggle />
-          <Link
-            href="/"
-            className="font-outfit text-sm sm:text-base md:text-lg text-foreground/80 hover:text-foreground transition-colors hidden sm:inline"
-          >
+          <Link href="/" className={linkClass("/", true)}>
             Home
           </Link>
 
-          <Link
-            href="/search"
-            className="font-outfit text-sm sm:text-base md:text-lg text-foreground/80 hover:text-foreground transition-colors"
-          >
+          <Link href="/search" className={linkClass("/search")}>
             Search
           </Link>
           <Link
             href="/bookmarks"
-            className="relative inline-flex items-center font-outfit text-sm sm:text-base md:text-lg text-foreground/80 hover:text-foreground transition-colors"
+            className={`relative inline-flex items-center ${linkClass("/bookmarks")}`}
           >
             Bookmarks
             <Badge
@@ -103,10 +104,7 @@ export default function Navbar() {
               {bookmarkedArticles.length}
             </Badge>
           </Link>
-          <Link
-            href="/about"
-            className="font-outfit text-sm sm:text-base md:text-lg text-foreground/80 hover:text-foreground transition-colors"
-          >
+          <Link href="/about" className={linkClass("/about")}>
             About
           </Link>
         </nav>

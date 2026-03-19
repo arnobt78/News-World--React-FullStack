@@ -106,9 +106,9 @@ export default function BannerSlider({
                 onError={(e) => {
                   e.currentTarget.src = NO_IMG;
                 }}
-                className="w-full h-full object-cover rounded-xl opacity-70 group-hover:opacity-90 transition-opacity duration-300"
+                className="w-full h-full object-cover rounded-xl opacity-90 group-hover:opacity-95 transition-opacity duration-300"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent rounded-xl" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent rounded-xl" />
               <div className="absolute left-0 bottom-0 w-full p-3">
                 <p
                   className="font-playfair text-white text-sm font-medium tracking-wider line-clamp-2"

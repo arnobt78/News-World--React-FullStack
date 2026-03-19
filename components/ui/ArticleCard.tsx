@@ -56,7 +56,7 @@ export default function ArticleCard({
         onError={(e) => {
           e.currentTarget.src = NO_IMG;
         }}
-        className="w-full h-full object-cover rounded-xl opacity-50 group-hover:opacity-60 transition-opacity duration-300"
+        className="w-full h-full object-cover rounded-xl opacity-90 group-hover:opacity-95 transition-opacity duration-300"
       />
       <button
         type="button"
@@ -71,7 +71,7 @@ export default function ArticleCard({
           className={`size-4 sm:size-5 md:size-5 ${saved ? "fill-current text-[#b88efc]" : ""}`}
         />
       </button>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent rounded-xl" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-xl" />
       <div className="absolute left-0 bottom-0 w-full p-4 pr-12 rounded-b-xl">
         <h3
           suppressHydrationWarning

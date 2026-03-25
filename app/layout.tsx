@@ -87,6 +87,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={cn(playfair.variable, outfit.variable, geist.variable)}
     >

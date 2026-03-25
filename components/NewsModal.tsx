@@ -18,7 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { useBookmarks } from "@/context/BookmarkContext";
 import { getProxiedImageUrl } from "@/lib/imageProxy";
 import type { Article } from "@/types/news";
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/safe-image";
 
 const NO_IMG = "/images/no-img.png";
 
@@ -79,7 +79,7 @@ export default function NewsModal({ show, article, onClose }: NewsModalProps) {
         <div className="overflow-y-auto scrollbar-custom flex-1 border-0">
           {article && (
             <Card className="border-0 bg-transparent shadow-none rounded-b-xl overflow-hidden">
-              <Image
+              <SafeImage
                 src={getProxiedImageUrl(article.image)}
                 alt={article.title}
                 width={1000}
